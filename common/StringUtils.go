@@ -2,6 +2,7 @@ package common
 
 import (
 	"strconv"
+	"bytes"
 )
 
 // 是否是空串
@@ -123,10 +124,7 @@ func Float32ToStr(f float32) string{
 	return Float64ToStr(float64(f))
 }
 
-// []byte转string
-func BytesToStr(bs []byte) string{
-	return string(bs)
-}
+
 
 // []uint8转string
 func Uint8sToStr(us []uint8) string{
@@ -137,7 +135,7 @@ func Uint8sToStr(us []uint8) string{
 	return string(ba)
 }
 
-// []uint8转string
+// []uint转string
 func UintsToStr(us []uint) string{
 	ba := []byte{}
 	for _, b := range us {
@@ -201,7 +199,42 @@ func StrToBytes(str string) []byte{
 	return []byte(str)
 }
 
+// string转[]uint8
 func StrToUint8s(str string) []uint8{
 	return []uint8(str)
+}
+
+func IntToStrHex(num int) string{
+	return strconv.FormatInt(int64(num),16)
+}
+
+func IntsToStrHex(nums []int) string{
+	var buffer bytes.Buffer //Buffer是一个实现了读写方法的可变大小的字节缓冲
+
+	for _,num := range nums{
+		buffer.WriteString(IntToStrHex(num))
+	}
+	return buffer.String()
+}
+
+func ByteToStr(b byte) string{
+	return string(b)
+}
+
+func ByteToStrHex(b byte) string{
+	return IntToStrHex(int(b))
+}
+
+// []byte转string
+func BytesToStr(bs []byte) string{
+	return string(bs)
+}
+
+func BytesToStrHex(bs []byte) string{
+	var buffer bytes.Buffer
+	for _,b := range bs{
+		buffer.WriteString(ByteToStrHex(b))
+	}
+	return buffer.String()
 }
 
