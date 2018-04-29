@@ -124,12 +124,12 @@ func Float32ToStr(f float32) string{
 }
 
 // []byte转string
-func ByteArrToStr(bs []byte) string{
+func BytesToStr(bs []byte) string{
 	return string(bs)
 }
 
 // []uint8转string
-func Uint8ArrToStr(us []uint8) string{
+func Uint8sToStr(us []uint8) string{
 	ba := []byte{}
 	for _, b := range us {
 		ba = append(ba, byte(b))
@@ -138,7 +138,7 @@ func Uint8ArrToStr(us []uint8) string{
 }
 
 // []uint8转string
-func UintArrToStr(us []uint) string{
+func UintsToStr(us []uint) string{
 	ba := []byte{}
 	for _, b := range us {
 		ba = append(ba, byte(b))
@@ -196,4 +196,12 @@ func Uint64ToStr(num uint64) string{
 	return strconv.FormatUint(num,64)
 }
 
+// string转[]byte
+func StrToBytes(str string) []byte{
+	return []byte(str)
+}
+
+func StrToUint8s(str string) []uint8{
+	return []uint8(str)
+}
 
