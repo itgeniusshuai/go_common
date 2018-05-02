@@ -273,4 +273,21 @@ func AddAllIntArr(desc []int, src []int ) []int{
 	return append(desc,src...)
 }
 
+func AddAllStrArrSlice(desc []string, src []string,start int, end int) []string{
+	srcLength := len(src)
+	if start < 0{
+		start = 0
+	}
+	if end < start{
+		return desc
+	}
+	if end > srcLength{
+		end = srcLength
+	}
+	return append(desc,src[start:end]...)
+}
+
+func AddAllStrArr(desc []string, src []string ) []string{
+	return append(desc,src...)
+}
 
