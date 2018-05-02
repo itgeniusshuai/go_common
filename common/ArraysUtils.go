@@ -299,3 +299,64 @@ func AddAllStrArr(desc []string, src []string ) []string{
 	return append(desc,src...)
 }
 
+func DistinctStrArrByMap(arr []string ) []string{
+	tmp_arr := make([]string, 0)
+	if arr == nil || len(arr) == 0{
+		return tmp_arr
+	}
+	tm := make(map[string]int,0)
+	for _,e := range arr{
+		tm[e] = 0
+	}
+	for k,_ := range tm{
+		tmp_arr = append(tmp_arr, k)
+	}
+	return tmp_arr
+}
+
+func DistinctIntArrByMap(arr []int ) []int{
+	tmp_arr := make([]int, 0)
+	if arr == nil || len(arr) == 0{
+		return tmp_arr
+	}
+	tm := make(map[int]int,0)
+	for _,e := range arr{
+		tm[e] = 0
+	}
+	for k,_ := range tm{
+		tmp_arr = append(tmp_arr, k)
+	}
+	return tmp_arr
+}
+
+func CompareIntArr(desc []int, src []int) bool{
+	if desc == nil || src == nil{
+		return false
+	}
+	if len(desc) != len(src){
+		return false
+	}
+	for i,e := range src{
+		if e != desc[i]{
+			return false
+		}
+	}
+	return true
+
+}
+
+func CompareStrArr(desc []int, src []int) bool{
+	if desc == nil || src == nil{
+		return false
+	}
+	if len(desc) != len(src){
+		return false
+	}
+	for i,e := range src{
+		if e != desc[i]{
+			return false
+		}
+	}
+	return true
+}
+
