@@ -12,6 +12,7 @@ import (
 	"crypto/x509"
 	"crypto/rsa"
 	"crypto/rand"
+	"crypto/sha256"
 )
 
 const base64Table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
@@ -155,5 +156,17 @@ func RsaDecrypt(ciphertext []byte, privateKey []byte) ([]byte, error) {
 		return nil, err
 	}
 	return rsa.DecryptPKCS1v15(rand.Reader, priv, ciphertext)
+}
+
+// sha256
+func Sha256(str string) (string,error){
+	sha256 := sha256.New()
+	_,e := sha256.Write(StrToBytes(str))
+	if (e != nil){
+		return "",e
+	}
+
+	rs := sha256.Sum(nil)
+	return BytesToStrHex(rs),nil
 }
 
