@@ -1,5 +1,13 @@
 package common
 
+// 支持int和string两种数组操作(无需开辟空间返回等都是原数组等扩展)
+// 包含按照索引添加元素，索引移除，元素移除
+// 按照索引添加元素的时候如果索引范围为0，length之间，则重新分配内存，否则是在原基础上增加
+// 按照索引移除元素时，如果指定索引不合法，返回原数组，否则重新分配内存
+// 数组首部添加加元素重新开辟空间
+// 尾部添加不重新开辟空间
+// addAll*等都是原数组基础上修改
+// 范围复制重新开辟空间
 
 // 指定索引增加元素,索引大于范围添加到最后，索引小于0放到前面
 func AddIntArr(arr []int, index int,e int) ([]int){
@@ -115,7 +123,7 @@ func RemoveIntArr(arr []int,index int) []int{
 func CopyIntArr(arr []int, start int, end int) []int{
 	length := len(arr)
 	if start >= end || start > length || end <= 0{
-		return nil
+		return make([]int,0)
 	}
 	if start <0 {
 		start = 0
@@ -135,7 +143,7 @@ func CopyIntArr(arr []int, start int, end int) []int{
 func CopyStrArr(arr []string, start int, end int) []string{
 	length := len(arr)
 	if start >= end || start > length || end <= 0{
-		return nil
+		return make([]string,0)
 	}
 	if start <0 {
 		start = 0
