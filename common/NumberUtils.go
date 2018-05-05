@@ -2,6 +2,12 @@ package common
 
 // 小端法
 func BytesToIntWithMin(bs []byte) int{
+	bLen := len(bs)
+	if(bLen < 4){
+		for m := 0; m < 4-bLen; m ++{
+			bs = append(bs, 0)
+		}
+	}
 	var i int
 	var j uint
 	for j = 0; j < 4; j++{
@@ -11,7 +17,13 @@ func BytesToIntWithMin(bs []byte) int{
 }
 
 // 小端法
-func BytesToLongWithMin(bs []byte) int64{
+func BytesToInt64WithMin(bs []byte) int64{
+	bLen := len(bs)
+	if(bLen < 8){
+		for m := 0; m < 8-bLen; m ++{
+			bs = append(bs, 0)
+		}
+	}
 	var i int64
 	var j uint
 	for j = 0; j < 8; j++{
@@ -31,7 +43,7 @@ func BytesToIntWithMax(bs []byte) int{
 }
 
 // 大端法
-func BytesToLongWithMax(bs []byte) int64{
+func BytesToInt64WithMax(bs []byte) int64{
 	var i int64
 	var j uint
 	for j = 0; j < 8; j++{
