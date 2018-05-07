@@ -13,6 +13,7 @@ import (
 	"crypto/rsa"
 	"crypto/rand"
 	"crypto/sha256"
+	"crypto/sha1"
 )
 
 const base64Table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
@@ -170,3 +171,12 @@ func Sha256(str string) (string,error){
 	return BytesToStrHex(rs),nil
 }
 
+func Sha1(str string) (string,error){
+	sha1 := sha1.New()
+	_,e := sha1.Write(StrToBytes(str))
+	if e != nil{
+		return "",e
+	}
+	rs := sha1.Sum(nil)
+	return BytesToStrHex(rs),nil
+}
