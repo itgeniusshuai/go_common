@@ -1,10 +1,7 @@
 package common
 
-import (
-	"github.com/itgeniusshuai/mysql_slave/tools"
-)
+const MAX_QUEUE_SIZE = 10000
 
-var MAX_QUEUE_SIZE = 10000
 var queue = make(chan Job, MAX_QUEUE_SIZE)
 
 type Job interface {
@@ -34,7 +31,7 @@ func (w *Worker) Start() {
 			select {
 			case job := <-w.JobChannel:
 				if err := job.Do(); err != nil {
-					tools.Println("excute job failed with err: %v", err)
+					Println("excute job failed with err: %v", err)
 				}
 				// recieve quit event, stop worker
 			case <-w.quit:
@@ -76,11 +73,20 @@ func NewWorker() *Worker{
 	return &worker
 }
 
-func MakeGoroutinePoolAndRun(poolSize int){
+func MakeGoroutinePoolAndRun(poolSize int) *Dispatcher{
 	dispatcher := Dispatcher{PoolSize:poolSize}
-	dispatcher.Run()
+	go dispatcher.Run()
+	return &dispatcher
 }
 
 func SendToPool(job Job){
 	JobQueue <- job
 }
+
+func (this  *Dispatcher)Close(){
+	for _,e := range this.Workers{
+		e.quit <- true
+	}
+	this.quit <- true
+}
+

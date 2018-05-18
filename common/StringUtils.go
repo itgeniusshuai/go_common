@@ -3,6 +3,7 @@ package common
 import (
 	"strconv"
 	"bytes"
+	"fmt"
 )
 
 // 是否是空串
@@ -238,3 +239,10 @@ func BytesToStrHex(bs []byte) string{
 	return buffer.String()
 }
 
+func Println(format string,args ...interface{}){
+	fmt.Println(fmt.Sprintf(format,args...))
+}
+
+func Print(format string,args ...interface{}){
+	fmt.Print(fmt.Sprintf(format,args...))
+}
