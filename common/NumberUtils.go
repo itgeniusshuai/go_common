@@ -55,3 +55,17 @@ func BytesToInt64WithMax(bs []byte) int64{
 	}
 	return i
 }
+
+func Max(v1 int, v2 int)int{
+	if v1 < v2{
+		return v2
+	}
+	return v1
+}
+
+func Min(v1 int, v2 int)int{
+	if v1 > v2{
+		return v2
+	}
+	return v1
+}
