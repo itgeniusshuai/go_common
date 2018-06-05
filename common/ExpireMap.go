@@ -16,12 +16,14 @@ type ExpireMap struct{
 func (expireMap *ExpireMap)Put(key interface{},v interface{}){
 	defer expireMap.lock.Unlock()
 	expireMap.lock.Lock()
+	expireMap.makeSureDataAndExpire()
 	expireMap.data[key] = v
 }
 
 func (expireMap *ExpireMap)PutWithExpire(key interface{},v interface{},duration time.Duration){
 	defer expireMap.lock.Unlock()
 	expireMap.lock.Lock()
+	expireMap.makeSureDataAndExpire()
 	expireMap.data[key] = v
 	t := time.Now().Add(duration)
 	expireMap.expire[key] = &t
@@ -45,5 +47,14 @@ func (expireMap *ExpireMap)Delete(key interface{}){
 	expireMap.lock.Lock()
 	delete(expireMap.data,key)
 	delete(expireMap.expire,key)
+}
+
+func (expireMap *ExpireMap)makeSureDataAndExpire(){
+	if expireMap.data == nil{
+		expireMap.data = make(map[interface{}]interface{})
+	}
+	if expireMap.expire == nil{
+		expireMap.expire = make(map[interface{}]*time.Time)
+	}
 }
 

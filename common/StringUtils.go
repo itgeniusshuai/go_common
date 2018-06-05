@@ -4,6 +4,8 @@ import (
 	"strconv"
 	"bytes"
 	"fmt"
+	"github.com/satori/go.uuid"
+	"encoding/json"
 )
 
 // 是否是空串
@@ -245,4 +247,14 @@ func Println(format string,args ...interface{}){
 
 func Print(format string,args ...interface{}){
 	fmt.Print(fmt.Sprintf(format,args...))
+}
+
+func GetUuid()string{
+	uuid,_ := uuid.NewV4()
+	return uuid.String()
+}
+
+func Json(obj interface{})string{
+	bs,_ := json.Marshal(obj)
+	return BytesToStr(bs)
 }
