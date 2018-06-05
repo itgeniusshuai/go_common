@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/satori/go.uuid"
 	"encoding/json"
+	"strings"
 )
 
 // 是否是空串
@@ -251,7 +252,7 @@ func Print(format string,args ...interface{}){
 
 func GetUuid()string{
 	uuid,_ := uuid.NewV4()
-	return uuid.String()
+	return strings.Replace(uuid.String(),"_","",-1)
 }
 
 func Json(obj interface{})string{
