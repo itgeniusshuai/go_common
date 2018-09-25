@@ -3,6 +3,10 @@ package common
 import (
 	"strconv"
 	"bytes"
+	"fmt"
+	"github.com/satori/go.uuid"
+	"encoding/json"
+	"strings"
 )
 
 // 是否是空串
@@ -238,3 +242,20 @@ func BytesToStrHex(bs []byte) string{
 	return buffer.String()
 }
 
+func Println(format string,args ...interface{}){
+	fmt.Println(fmt.Sprintf(format,args...))
+}
+
+func Print(format string,args ...interface{}){
+	fmt.Print(fmt.Sprintf(format,args...))
+}
+
+func GetUuid()string{
+	uuid,_ := uuid.NewV4()
+	return strings.Replace(uuid.String(),"_","",-1)
+}
+
+func Json(obj interface{})string{
+	bs,_ := json.Marshal(obj)
+	return BytesToStr(bs)
+}
