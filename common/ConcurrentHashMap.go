@@ -142,7 +142,6 @@ func (this *MapLink)Put(key string, v interface{}){
 func hash(key string, length int) int{
 	hashV := crc32.ChecksumIEEE([]byte(key))
 	hash := int(hashV) & (length >> 1)
-	fmt.Println(hash)
 	return hash
 }
 
