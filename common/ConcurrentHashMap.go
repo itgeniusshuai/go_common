@@ -13,6 +13,7 @@ const DEFAULT_LINK_SIZE = 16
 type concurrentHashMap struct {
 	// 桶加链表
 	links []*MapLink
+	size int
 
 }
 
@@ -99,6 +100,14 @@ func (this *concurrentHashMap)Values() []interface{}{
 	return keys;
 }
 
+func (this *concurrentHashMap) Size() int{
+	return this.size
+}
+
+func (this *concurrentHashMap) IsEmpty() bool{
+	return this.size == 0
+}
+
 // 移除元素
 func (this *MapLink)Remove(key string) interface{}{
 	defer this.lock.Unlock()
@@ -175,7 +184,19 @@ func (this *MapLink)Put(key string, v interface{}){
 
 func hash(key string, length int) int{
 	hashV := crc32.ChecksumIEEE([]byte(key))
-	hash := int(hashV) & (length >> 1)
+	hashV = hashV ^ (hashV>> 16)
+	hash := int(hashV) & (length - 1)
 	return hash
+}
+
+// 判断是否需要扩容
+func (this *concurrentHashMap)checkCap() bool{
+	// 如果元素数量大于桶
+	return false;
+}
+
+// 扩容
+func (this *concurrentHashMap) makeSureCap(){
+
 }
 
