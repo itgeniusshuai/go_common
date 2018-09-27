@@ -65,6 +65,41 @@ func (this *concurrentHashMap)Contain(key string) bool{
 	return this.links[hash(key,DEFAULT_LINK_SIZE)].Contain(key)
 }
 
+// 所有key
+func (this *concurrentHashMap)KeySet() []string{
+	keys := make([]string,0)
+	for _,e := range this.links{
+		var node *Node
+		if e == nil{
+			continue
+		}
+		node = e.root
+		for node != nil{
+			keys = append(keys, node.key)
+			node = node.next
+		}
+	}
+	return keys;
+}
+
+// 所有value
+func (this *concurrentHashMap)Values() []interface{}{
+	keys := make([]interface{},0)
+	for _,e := range this.links{
+		var node *Node
+		if e == nil{
+			continue
+		}
+		node = e.root
+		for node != nil{
+			keys = append(keys, node.value)
+			node = node.next
+		}
+	}
+	return keys;
+}
+
+// 移除元素
 func (this *MapLink)Remove(key string) interface{}{
 	defer this.lock.Unlock()
 	this.lock.Lock()
