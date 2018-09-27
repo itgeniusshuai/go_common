@@ -3,7 +3,6 @@ package common
 import (
 	"hash/crc32"
 	"sync"
-	"fmt"
 )
 /**
 	目前不支持扩容
