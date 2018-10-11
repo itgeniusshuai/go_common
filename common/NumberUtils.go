@@ -1,5 +1,7 @@
 package common
 
+import "encoding/binary"
+
 // 小端法
 func BytesToIntWithMin(bs []byte) int{
 	bLen := len(bs)
@@ -68,4 +70,10 @@ func Min(v1 int, v2 int)int{
 		return v2
 	}
 	return v1
+}
+
+func IntToBytes(i int)[]byte{
+	var buf = make([]byte, 8)
+	binary.BigEndian.PutUint64(buf, uint64(i))
+	return buf
 }
