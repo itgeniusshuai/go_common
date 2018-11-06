@@ -73,7 +73,7 @@ func Min(v1 int, v2 int)int{
 }
 
 func IntToBytes(i int)[]byte{
-	var buf = make([]byte, 8)
-	binary.BigEndian.PutUint64(buf, uint64(i))
+	var buf = make([]byte, 32)
+	binary.LittleEndian.PutUint32(buf,uint32(i))
 	return buf
 }
