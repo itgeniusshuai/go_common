@@ -15,3 +15,4 @@ func GetStructTag(obj interface{}, tagName string) map[string]string{
 	}
 	return resMap
 }
+

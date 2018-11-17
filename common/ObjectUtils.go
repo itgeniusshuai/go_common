@@ -1,6 +1,9 @@
 package common
 
-import "reflect"
+import (
+	"reflect"
+	"fmt"
+)
 
 func ObjToMapString(v interface{}) map[string]string{
 	var m = make(map[string]string,0)
@@ -10,7 +13,25 @@ func ObjToMapString(v interface{}) map[string]string{
 	for i := 0; i < fieldNum; i++{
 		f := tye.Field(i)
 		key := f.Name
-		v1 := value.Field(i).String()
+		v1 := value.Field(i)
+		m[key] = v1.String()
+	}
+	return m
+}
+
+
+func ObjToTagMapString(v interface{},tagName string) map[string]string{
+	var m = make(map[string]string,0)
+	tye := reflect.TypeOf(v)
+	value := reflect.ValueOf(v)
+	var fieldNum = tye.NumField()
+	for i := 0; i < fieldNum; i++{
+		f := tye.Field(i)
+		key := f.Tag.Get(tagName)
+		if key == ""{
+			key = f.Name
+		}
+		v1 := fmt.Sprintf("%v",value.Field(i))
 		m[key] = v1
 
 	}
@@ -26,13 +47,21 @@ func ObjToMap(v interface{}) map[string]interface{}{
 		f := tye.Field(i)
 		key := f.Name
 		v1 := value.Field(i)
-		m[key] = v1.Interface()
-
+		m[key] = ValueToInterface(v1)
 	}
-	return nil
+	return m
 }
 
-func MapToObj(m map[string]string,v interface{},tagName string) {
+func MapToObj(m map[string]string,v interface{}) {
+	newObjValue := reflect.ValueOf(v).Elem()
 
-
+	for k,v := range m{
+		f := newObjValue.FieldByName(k)
+		if f.IsValid(){
+			f.Set(reflect.ValueOf(v))
+		}
+	}
 }
+
+
+
