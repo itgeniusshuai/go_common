@@ -16,3 +16,12 @@ func GetStructTag(obj interface{}, tagName string) map[string]string{
 	return resMap
 }
 
+func GetFieldTagValue(obj interface{},fieldName string,tagName string) string{
+	vt := reflect.TypeOf(obj)
+	f,b := vt.FieldByName(fieldName)
+	if b {
+		return f.Tag.Get(tagName)
+	}
+	return ""
+}
+
