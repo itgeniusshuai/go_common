@@ -32,8 +32,8 @@ func GetValueByField(obj interface{},fieldName string) interface{}{
 }
 
 func GetFieldValueByFieldTag(obj interface{},tagName string,tagValue string) interface{}{
-	vt := reflect.TypeOf(obj)
 	v := reflect.ValueOf(obj)
+	vt := v.Type()
 	n := vt.NumField()
 	for i := 0; i < n; i++{
 		if vt.Field(i).Tag.Get(tagName) == tagValue{
