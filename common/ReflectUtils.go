@@ -3,7 +3,6 @@ package common
 import (
 	"reflect"
 	"fmt"
-	"errors"
 )
 
 func ValueToInterface(v reflect.Value)interface{}{
@@ -30,9 +29,9 @@ func FuncReflectExec(execFunc interface{},params ...interface{})([]interface{},e
 	vt := reflect.ValueOf(execFunc)
 	fmt.Println(vt.Kind())
 	paramValues := make([]reflect.Value,0)
-	if vt.Type().NumIn() != len(params){
-		return nil,errors.New("参数个数不对")
-	}
+	//if vt.Type().NumIn() != len(params){
+	//	return nil,errors.New("参数个数不对")
+	//}
 	for _,param := range params{
 		paramValues = append(paramValues, reflect.ValueOf(param))
 	}

@@ -1,6 +1,7 @@
 package common
 
 import "reflect"
+import "fmt"
 
 // 获取对象对应的着重号内的标签，key为原名称，v为标签名称
 func GetStructTag(obj interface{}, tagName string) map[string]string{
@@ -36,6 +37,7 @@ func GetFieldValueByFieldTag(obj interface{},tagName string,tagValue string) int
 	vt := v.Type()
 	n := vt.NumField()
 	for i := 0; i < n; i++{
+		fmt.Println(vt.Field(i).Tag.Get(tagName))
 		if vt.Field(i).Tag.Get(tagName) == tagValue{
 			return ValueToInterface(v.Field(i))
 		}

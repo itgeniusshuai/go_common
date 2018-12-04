@@ -52,7 +52,7 @@ func ObjToMap(v interface{}) map[string]interface{}{
 	return m
 }
 
-func MapToObj(m map[string]string,v interface{}) {
+func MapToObj(m map[string]interface{},v interface{}) {
 	newObjValue := reflect.ValueOf(v).Elem()
 
 	for k,v := range m{
