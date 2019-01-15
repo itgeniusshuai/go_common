@@ -261,9 +261,9 @@ func Json(obj interface{})string{
 }
 
 func IsInt(str string)(bool,int){
-	num,err := strconv.ParseInt(str,10,64)
+	num,err := strconv.ParseInt(str,10,32)
 	if err != nil{
-		return false,num
+		return false,int(num)
 	}
-	return true,num
+	return true,int(num)
 }
