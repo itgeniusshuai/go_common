@@ -259,3 +259,11 @@ func Json(obj interface{})string{
 	bs,_ := json.Marshal(obj)
 	return BytesToStr(bs)
 }
+
+func IsInt(str string)(bool,int){
+	num,err := strconv.ParseInt(str,10,64)
+	if err != nil{
+		return false,num
+	}
+	return true,num
+}
